@@ -23,3 +23,4 @@ jobs:
           go build server.go
           sudo systemctl restart goweb
           sudo systemctl restart nginx
+          go version
