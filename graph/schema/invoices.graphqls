@@ -1,0 +1,41 @@
+type Invoice {
+    id: String!
+    dateCreated: Int!
+	from: String!
+	address: String!
+	amount: Float!
+}
+
+type PaginatedInvoices {
+  data: [Invoice!]!
+  total: Int!
+}
+
+extend type Query {
+    getInvoices(page: Int!): PaginatedInvoices! @hasRole(role: [OWNER, ACCT])
+    getInvoice(id: String!): Invoice! @hasRole(role: [OWNER, ACCT])
+    test: Boolean!
+}
+
+input CreateInvoice {
+    dateCreated: Int!
+	from: String!
+	address: String!
+	amount: Float!
+}
+
+input UpdateInvoice {
+    id: String!
+    DateCreated: Int!
+    From: String!
+    Address: String!
+    Amount: Float!
+}
+
+
+
+extend type Mutation {
+    createInvoice(input: CreateInvoice!): Invoice!
+    updateInvoice(input: UpdateInvoice!): Invoice!
+    deleteInvoice(id: String!): Boolean!
+}

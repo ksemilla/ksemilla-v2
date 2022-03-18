@@ -1,0 +1,23 @@
+version: '3.9'
+
+services:
+  db:
+    image: mongo
+    restart: always
+    volumes:
+      - ksemilla-db:/data/db
+    command: mongod --quiet --logpath /dev/null 
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ksemilla
+      MONGO_INITDB_ROOT_PASSWORD: ksemilla
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: >
+      sh -c "go run server.go"
+    ports:
+      - ${PORT}:8080
+
+volumes:
+  ksemilla-db:

@@ -1,0 +1,44 @@
+type User {
+    id: ID!
+    email: String!
+    password: String!
+    role: String!
+}
+
+type Query {
+    getCreateOwnerValidity: Boolean!
+    getUsers: [User!]! @hasRole(role: OWNER)
+    fetchUser(id: String!): User! @hasRole(role: OWNER)
+    getNumber: Int!
+}
+
+input CreateUser {
+    email: String!
+    role: String!
+}
+
+input CreateOwner {
+    email: String!
+    password: String!
+    key: String!
+}
+
+input UpdateUser {
+  id: String!
+  email: String!
+  role: String!
+}
+
+type Mutation {
+    createOwner(input: CreateOwner!): User!
+    createUser(input: CreateUser!): User! @hasRole(role: OWNER)
+    updateUser(input: UpdateUser!): User! @hasRole(role: OWNER)
+    deleteUser(input: String!): Boolean! @hasRole(role: OWNER)
+}
+
+directive @hasRole(role: [Role!]!) on FIELD_DEFINITION
+
+enum Role {
+    OWNER
+    ACCT
+}
