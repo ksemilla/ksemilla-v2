@@ -20,13 +20,12 @@ jobs:
         script: |
           cd ksemilla-v2
           git pull
-          go build server.go
           sudo systemctl restart goweb
           sudo systemctl restart nginx
-          go version
     - name: golang here
       uses: actions/setup-go@v2
       with:
         go-version: ^1.17.1
         script: |
           ls
+          go version
