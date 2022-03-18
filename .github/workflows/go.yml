@@ -19,5 +19,7 @@ jobs:
         port: ${{ secrets.PORT }}
         script: |
           cd ksemilla-v2
-          ls
           git pull
+          go build server.go
+          sudo systemctl restart goweb
+          sudo systemctl restart nginx
