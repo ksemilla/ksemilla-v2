@@ -21,7 +21,7 @@ jobs:
     - name: Prune dangling images
       run: docker image prune -f
     - name: Checker
-      run: ls && pwd && echo $PORT
+      run: ls && pwd && echo ${{ secrets.PORT }}
     - name: Build docker compose
       run: docker-compose up --detach
     - name: Restart nginx
