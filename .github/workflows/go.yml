@@ -1,35 +1,23 @@
-name: Go
+name: Go pa more
 
 on:
   push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+    branches:
+      - main
+  workflow_dispatch:
 
 jobs:
 
   build:
-    runs-on: self-hosted
+    name: SSH connect
+    runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-
-    - name: Set up Go
-      uses: actions/setup-go@v2
+    - name: executing ssh commands
+    uses: appleboy/ssh-action@master
       with:
-        go-version: 1.17
-
-    - name: Prune dangling images
-      run: docker image prune -f
-    - name: Checker
-      run: ls && pwd && echo ${{ secrets.PORT }}
-    - name: Build docker compose
-      env:
-        PORT: ${{ secrets.PORT }}
-        TOKEN_DURATION: 2592000
-        APP_SECRET_KEY: Jebaited
-        MONGODB_URI: mongodb://ksemilla:ksemilla@db:27017
-        OWNER_KEY: 123
-        CORS_ALLOWED_HOSTS: http://localhost:5000,http://127.0.0.1,http://localhost:3000
-      run: docker-compose up --build --detach
-    - name: Restart nginx
-      run: sudo systemctl restart nginx
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        key: ${{ secrets.KEY }}
+        port: ${{ secrets.PORT }}
+        script: |
+          ls
