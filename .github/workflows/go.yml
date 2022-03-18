@@ -12,9 +12,7 @@ jobs:
     steps:
     - name: executing ssh commands
       uses: appleboy/ssh-action@master
-      uses: actions/setup-go@v2
       with:
-        go-version: ^1.17.1
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USERNAME }}
         key: ${{ secrets.KEY }}
@@ -26,3 +24,9 @@ jobs:
           sudo systemctl restart goweb
           sudo systemctl restart nginx
           go version
+    - name: golang here
+      uses: actions/setup-go@v2
+      with:
+        go-version: ^1.17.1
+        script: |
+          ls
