@@ -18,5 +18,6 @@ jobs:
         key: ${{ secrets.KEY }}
         port: ${{ secrets.PORT }}
         script: |
+          cd ksemilla-v2
           ls
-          pwd
+          git pull
