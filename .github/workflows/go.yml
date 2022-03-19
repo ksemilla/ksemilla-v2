@@ -8,7 +8,11 @@ on:
 jobs:
   build:
     name: SSH connect
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        go-version: [1.17.1]
+        os: [ubuntu-latest]
+    runs-on: ${{ matrix.os }}
     steps:
     - name: executing ssh commands
       uses: appleboy/ssh-action@master
@@ -22,10 +26,3 @@ jobs:
           git pull
           sudo systemctl restart goweb
           sudo systemctl restart nginx
-    - name: golang here
-      uses: actions/setup-go@v2
-      with:
-        go-version: ^1.17.1
-        script: |
-          ls
-          go version
