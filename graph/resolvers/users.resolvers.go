@@ -40,7 +40,7 @@ func (r *queryResolver) FetchUser(ctx context.Context, id string) (*model.User, 
 }
 
 func (r *queryResolver) GetNumber(ctx context.Context) (int, error) {
-	return 3, nil
+	return 4, nil
 }
 
 // Mutation returns generated.MutationResolver implementation.
